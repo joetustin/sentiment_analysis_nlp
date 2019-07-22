@@ -18,11 +18,11 @@ nltk.download("punkt")
 import re
 
 df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
-
+df_trial = df[:10000]
 wordnet = WordNetLemmatizer()
 
 #corpus = [' '.join(df['Review']).lower() for row in df]
-df_corpus = df["Review"].str.replace(r'([^a-zA-Z\s]+?)'," ")
+df_corpus = df_trial["Review"].str.replace(r'([^a-zA-Z\s]+?)'," ")
 df_corpus =df_corpus.str.lower()
 docs_tokenized = [word_tokenize(content) for content in df_corpus]
 stop = set(stopwords.words('english'))
@@ -45,3 +45,4 @@ X_train_counts_final_arr = X_train_counts_final.toarray()
 
 if __name__=="__main__":
     print(X_train_counts_final_arr.shape)
+    print(df_trial.head())
