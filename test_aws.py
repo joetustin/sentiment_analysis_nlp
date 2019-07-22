@@ -41,7 +41,7 @@ new_df = pd.DataFrame(new_series,columns = [col])
 
 cv = CountVectorizer(lowercase=True, tokenizer=None, strip_accents= "ascii", stop_words="english",
                              analyzer='word', max_df=1.0, min_df=2,ngram_range=(1,4),
-                             max_features=None)
+                             max_features=100000)
 X_train_counts_final = cv.fit_transform(new_df.text.values)
 X_train_counts_final_arr = X_train_counts_final.toarray()
 
