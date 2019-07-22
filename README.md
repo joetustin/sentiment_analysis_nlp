@@ -1,18 +1,24 @@
-# Sentiment Prediction of a Rotten Tomatoes Critic's Review Dataset using NLP
+# Sentiment Analysis in NLP of Rotten Tomatoes' Dataset
 
 ### by: Joe Tustin
 
 "The scope of this project included EDA, Feature Analysis, and a Multinomial Naive Bayes predictive model."
 
 ## Table of Contents
-1. [Description of Dataset](#DescriptionofDataset)
-2. [Exploratory Data Analysis](#eda)
+1. [Starting Point](#StartingPoint)
+2. [Description of Dataset](#DescriptionofDataset)
+3. [Exploratory Data Analysis](#eda)
     1. [Dataset](#dataset)
     2. [Data Cleaning](#cleaning)
     3. [Sentiment Analysis](#sentimentanalysis)
-3. [Modelling](#model)
+4. [Modelling](#model)
     1. [Naive Bayes](#naivebayes)
-4. [Conclusions](#conclusions)
+5. [Conclusions](#conclusions)
+
+## Starting Point
+I worked on this Dataset as part of my second capstone at Galvanize.  In my original Capstone project,  I used a Multinomial Naive Bayes model for its ease of use and relative success in the field of natural language processing.  Other recommended models included logistic regression, support vector models, recurrent neural networks, and convolutional neural networks.  My first naive bayes model achieved a training accuracy score of .92 and a test accuracy score of .74   These scores were achieved by switching to a tfidf matrix over a term frequency matrix.  Results were also improved by incorporating bigrams.  Conclusions were that the model was overfit.  Also, an analysis of misclassification words could be used to edit the stop-words and improve the accuracy.  I also suspected that the relative importance of words in a tfidf matrix could be binned and the weight could be changed based on looking at a word_cloud image.  It appeared at though words in bin 3 or 4 would be the most important. Let's see it we can improve the model.
+
+In this second go round.  I wanted to improve the lemmatization of my token matrix.  I wanted to play around with using an ensemble model to improve the  accuracy as well as a model that featured bigrams, trigams, and quadgrams.  I wanted to perform a cross-validation and grid search to fine tune my model (I also thought about creating a pipeline to streamline my model creation).  I wanted to perform my training on a large training set using AWS.  In the first go round, my feature size to data size was 1:1.  I thought that performance could be greatly in hanced using a larger data set and 1:4 ratio.  And, I wanted to create a flask app to allow users to enter their own opinions and observe the sentiment analysis. If I can get to it, I want to compare the performance to a neural network or look at a comparison with doc2vec which is based on a wikipedia trained neural network.  
 
 ## Description of Dataset <a name="Description of Dataset"></a>
 
