@@ -14,6 +14,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 import nltk
 nltk.download("punkt")
+nltk.download("stopwords")
 
 import re
 
