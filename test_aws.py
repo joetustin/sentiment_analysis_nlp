@@ -12,6 +12,9 @@ from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 
+import nltk
+nltk.download("punkt")
+
 import re
 
 df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
