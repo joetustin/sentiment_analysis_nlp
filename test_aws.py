@@ -24,7 +24,7 @@ df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
 
 cv = CountVectorizer(lowercase=True, tokenizer=None, strip_accents= "ascii", stop_words="english",
                              analyzer='word', max_df=1.0, min_df=2,ngram_range=(1,1),
-                             max_features=15000)
+                             max_features=30000)
 tfidf = TfidfTransformer(use_idf=True)
 
 def cleaned_dframe(df, col_name = None):
@@ -84,8 +84,8 @@ def text2num(cleaned_df, col= None, train=True, cv=None, tfidf=None):
     return X_counts, X_counts_tfidf_arr
 
 if __name__=="__main__":
-    df_train = df[:100000]
-    df_test = df[100000:125000]
+    df_train = df[:200000]
+    df_test = df[200000:250000]
     y_train = df_train.Freshness
     y_test = df_test.Freshness
     df_train_clean = cleaned_dframe(df_train.copy(),"Review")
