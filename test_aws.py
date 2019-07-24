@@ -24,7 +24,7 @@ df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
 
 cv = CountVectorizer(lowercase=True, tokenizer=None, strip_accents= "ascii", stop_words="english",
                              analyzer='word', max_df=1.0, min_df=2,ngram_range=(1,1),
-                             max_features=4500)
+                             max_features=15000)
 tfidf = TfidfTransformer(use_idf=True)
 
 def cleaned_dframe(df, col_name = None):
