@@ -98,4 +98,4 @@ if __name__=="__main__":
     y_pred = nb_model.predict(X_counts_tfidf_arr_test)
     target_names = ["class 0","class 1"]
     print(nb_model.score(X_counts_tfidf_arr_train,y_train), nb_model.score(X_counts_tfidf_arr_test,y_test))
-    print(classification_report(y_test,y_pred,target_names=taget_names))
+    print(classification_report(y_test,y_pred,target_names=target_names))
