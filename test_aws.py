@@ -19,6 +19,7 @@ import re
 
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
+from sklearn.metrics import classification_report
 
 df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
 
@@ -84,8 +85,8 @@ def text2num(cleaned_df, col= None, train=True, cv=None, tfidf=None):
     return X_counts, X_counts_tfidf_arr
 
 if __name__=="__main__":
-    df_train = df[:200000]
-    df_test = df[200000:250000]
+    df_train = df[:100000]
+    df_test = df[100000:125000]
     y_train = df_train.Freshness
     y_test = df_test.Freshness
     df_train_clean = cleaned_dframe(df_train.copy(),"Review")
@@ -94,4 +95,7 @@ if __name__=="__main__":
     X_counts_test, X_counts_tfidf_arr_test = text2num(df_test_clean.copy(),"text",False,cv,tfidf)
     nb_model = MultinomialNB(alpha=1.0, fit_prior=True, class_prior=None)
     nb_model.fit(X_counts_tfidf_arr_train, y_train)
+    y_pred = nb_model.predict(X_counts_tfidf_arr_test)
+    target_names = ["class 0","class 1"]
     print(nb_model.score(X_counts_tfidf_arr_train,y_train), nb_model.score(X_counts_tfidf_arr_test,y_test))
+    print(classification_report(y_test,y_pred,target_names=taget_names))
