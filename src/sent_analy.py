@@ -23,6 +23,7 @@ nltk.download("stopwords")
 nltk.download("wordnet")
 
 import re
+import pickle
 
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
@@ -41,10 +42,10 @@ def lsts_words_df_str(lsts):
     """Purpose:  Takes a list of lists where each list contains words \
     that have been cleaned,tokenized and lemmatized. These words are rejoined \
     into documents and inserted into a new dataframe
-    
+
     Input: lists of tokenized documents
     Output: cleaned dataframe with a column of text"""
-    
+
     new_docs =[]
     for element in lsts:
         doc = " ".join(element)
@@ -52,7 +53,7 @@ def lsts_words_df_str(lsts):
     new_series_docs = pd.Series(new_docs)
     cleaned_df = pd.DataFrame(new_series_docs,columns = ["text"])
     return cleaned_df
-    
+
 
 def cleaned_dframe(df, col_name = None):
     """Purpose: Take in a text based Dataframe and return a cleaned text
@@ -94,10 +95,10 @@ def get_common_words(df_clean):
     """Purpose:  Given a cleaned dataframe create a new data frame\
     with just the most common words.  Workhorse function to create feature\
     importance list
-    
+
     Input: a cleaned dataframe with a column labebeled 'text'
     Oupput: A new dataframe with just the most common words and frequency"""
-    
+
     X_train_counts = cv.transform(df_clean["text"].values)
     word_freq = dict(zip(cv.get_feature_names(),\
                              np.asarray(X_train_counts.sum(axis=0)).ravel()))
@@ -109,10 +110,10 @@ def get_common_words(df_clean):
 
 def make_wordcloud(df):
     """Purpose: Make a word cloud from a cleaned text dataframe
-    
+
     Input:  Cleaned dataframe of text strings
     Ouput:  A plotted wordcloud indicating the most frequent words"""
-    
+
     text= " ".join(review for review in df["text"].values)
     stopwords = set(STOPWORDS)
     wordcloud =WordCloud(width=1600, height=800,\
@@ -130,16 +131,17 @@ def make_wordcloud(df):
 def get_fn_fp(df_test,y_test,y_pred):
     """ Purpose: To be able to examine some of the false positive and \
     false negative reviews
-    
+
     Input: dataframe of test set, actual target, and predictd target
     Output: A false negative dataframe and a false positive dataframe"""
-    
+
     false_neg = df_test[y_pred < y_test]
     false_pos = df_test[y_pred > y_test]
     return false_neg, false_pos
 
+
 if __name__=="__main__":
-    df=pd.read_csv("data/rotten_tomatoes_reviews.csv")
+    df=pd.read_csv("../data/rotten_tomatoes_reviews.csv")
     df_train = df[:20000]
     df_test = df[20000:25000]
     y_train = df_train.Freshness
@@ -151,6 +153,9 @@ if __name__=="__main__":
     X_counts_test, X_counts_tfidf_arr_test = text2num(df_test_clean.copy(),\
                                                       "text",False,cv,tfidf)
     nb_model.fit(X_counts_tfidf_arr_train, y_train)
+    pickle.dump(cv,open("cv_model.pkl","wb"))
+    pickle.dump(tfidf,open("tfidf_model.pkl","wb"))
+    pickle.dump(wordnet,open("wordnet.pkl","wb"))
+    pickle.dump(nb_model, open("nb_model.pkl", "wb"))
     print(nb_model.score(X_counts_tfidf_arr_train,y_train),\
           nb_model.score(X_counts_tfidf_arr_test,y_test))
-
