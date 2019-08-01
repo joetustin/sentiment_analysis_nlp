@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<style>
+* {
+ box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+ float: left;
+ width: 50%;
+ padding: 10px;
+ height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+ content: "";
+ display: table;
+ clear: both;
+}
+</style>
+<head>
+	<title>Home</title>
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body bgcolor="aquamarine">
+	<center>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+			Sentiment Analysis App with Flask
+		</div>
+		<h2>Please enter your movie review:</h2>
+
+	</div>
+	</header>
+
+	<div class="ml-container">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+		<p>Enter Your Message Here</p>
+		<!-- <input type="text" name="comment"/> -->
+		<textarea name="message" rows="4" cols="50"></textarea>
+		<br/>
+
+		<input type="submit" class="btn-info" value="predict">
+
+	</form>
+
+	</div>
+
+
+</center>
+<div class="row">
+	<div class="column" style="background-color:aquamarine;">
+	<h2>Past Postive Reviews</h2>
+	<ul>
+		{%for element in pos%}
+		<li>
+			{{element}}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="column" style="background-color:aquamarine;">
+<h2>Past Negative Reviews</h2>
+<ul>
+	{%for element in neg%}
+	<li>
+		{{element}}
+	</li>
+	{% endfor %}
+</ul>
+</div>
+</div>
+
+
+</body>
+</html>
